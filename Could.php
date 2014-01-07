@@ -109,56 +109,54 @@ class Could
             } else {
                 switch ($method) {
                     case 'AND':
-                        if (isset($targetFlatten['_'][$currentPrefix . $key])) {
-                            if ($targetFlatten['_'][$currentPrefix . $key] && $val) {
-                                $targetFlatten['_'][$currentPrefix . $key] = $val;
+                        if (isset($targetFlatten[$currentPrefix . $key])) {
+                            if ($targetFlatten[$currentPrefix . $key] && $val) {
+                                $targetFlatten[$currentPrefix . $key] = $val;
                             } else {
-                                $targetFlatten['_'][$currentPrefix . $key] = false;
+                                $targetFlatten[$currentPrefix . $key] = false;
                             }
                         } else {
-                            $targetFlatten['_'][$currentPrefix . $key] = false;
+                            $targetFlatten[$currentPrefix . $key] = false;
                         }
                         break;
 
                     case 'OR':
-                        if (isset($targetFlatten['_'][$currentPrefix . $key])) {
-                            if ($targetFlatten['_'][$currentPrefix . $key] || $val) {
-                                $targetFlatten['_'][$currentPrefix . $key] = $val;
+                        if (isset($targetFlatten[$currentPrefix . $key])) {
+                            if ($targetFlatten[$currentPrefix . $key] || $val) {
+                                $targetFlatten[$currentPrefix . $key] = $val;
                             }
                         } else {
-                            $targetFlatten['_'][$currentPrefix . $key] = false;
+                            $targetFlatten[$currentPrefix . $key] = false;
                         }
                         break;
 
                     case 'REPLACE':
-                        if (isset($targetFlatten['_'][$currentPrefix . $key])) {
-                            $targetFlatten['_'][$currentPrefix . $key] = $val;
+                        if (isset($targetFlatten[$currentPrefix . $key])) {
+                            $targetFlatten[$currentPrefix . $key] = $val;
                         } else {
-                            $targetFlatten['_'][$currentPrefix . $key] = false;
+                            $targetFlatten[$currentPrefix . $key] = false;
                         }
                         break;
 
                     case 'MAKE':
-                        $targetFlatten['_'][$currentPrefix . $key] = &$targetArray[$key];
+                        $targetFlatten[$currentPrefix . $key] = &$targetArray[$key];
                         break;
 
                     default:
                         break;
                 }
 
-                if (!$targetFlatten['_'][$currentPrefix . $key]) {
+                if (!$targetFlatten[$currentPrefix . $key]) {
                     $remain--;
                 }
             }
         }
 
         if ($remain > 0) {
-            $targetFlatten['_'][$prefix] = true;
+            $targetFlatten[$prefix] = true;
         } else {
-            $targetFlatten['_'][$prefix] = false;
+            $targetFlatten[$prefix] = false;
         }
-
-        $targetFlatten['?'][$prefix] = $remain;
 
         return $remain;
     }
@@ -234,9 +232,9 @@ class Could
      */
     public function let($flatKey, $newPermission)
     {
-        if (isset($this->flatPermissions['_'][$flatKey])) {
-            if ($this->flatPermissions['_'][$flatKey] != $newPermission) {
-                $this->flatPermissions['_'][$flatKey] = $newPermission;
+        if (isset($this->flatPermissions[$flatKey])) {
+            if ($this->flatPermissions[$flatKey] != $newPermission) {
+                $this->flatPermissions[$flatKey] = $newPermission;
 
                 $this->makeFlattenLink(
                     $this->permissions,
@@ -260,8 +258,8 @@ class Could
     public function lets(array $newPermissions)
     {
         foreach ($newPermissions as $flatKey => $newPermission) {
-            if (isset($this->flatPermissions['_'][$flatKey])) {
-                $this->flatPermissions['_'][$flatKey] = $newPermission;
+            if (isset($this->flatPermissions[$flatKey])) {
+                $this->flatPermissions[$flatKey] = $newPermission;
             }
         }
 
@@ -282,8 +280,8 @@ class Could
      */
     public function can($flatKey)
     {
-        if (isset($this->flatPermissions['_'][$flatKey])) {
-            return $this->flatPermissions['_'][$flatKey];
+        if (isset($this->flatPermissions[$flatKey])) {
+            return $this->flatPermissions[$flatKey];
         }
 
         return false;
@@ -297,7 +295,7 @@ class Could
     public function export()
     {
         return array(
-            'Flat' => $this->flatPermissions['_'],
+            'Flat' => $this->flatPermissions,
             'Raw' => $this->permissions
         );
     }
