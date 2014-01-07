@@ -10,7 +10,7 @@ namespace raincious\Permit;
  * This is a experimental module that you probably don't want to
  * use it in actual work.
  *
- * @copyright       Copyright (C) 2013, Rain Lee
+ * @copyright       Copyright (C) 2014, Rain Lee
  * @author          Rain Lee <raincious@gmail.com>
  *
  * Redistribution and use in source and binary forms, with or without
