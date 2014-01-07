@@ -83,6 +83,7 @@ class Could
      * @param array $targetArray The array of multi dimensional permission data
      * @param array $targetFlatten The array to save result (flatten)
      * @param string $prefix The prefix of key name for the flatting array item
+     * @param string $method Method of job
      *
      * @return void
      */
