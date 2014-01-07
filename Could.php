@@ -260,7 +260,7 @@ class Could
     {
         foreach ($newPermissions as $flatKey => $newPermission) {
             if (isset($this->flatPermissions['_'][$flatKey])) {
-                    $this->flatPermissions['_'][$flatKey] = $newPermission;
+                $this->flatPermissions['_'][$flatKey] = $newPermission;
             }
         }
 
